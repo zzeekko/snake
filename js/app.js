@@ -15,25 +15,26 @@ class Game {
             { x: 170, y: 200 },
             { x: 160, y: 200 }
         ]
-
+        
         this.snakeBoard = document.getElementById('snakeBoard')
         this.snakeBoardCtx = this.snakeBoard.getContext('2d')
-
+        
         this.dx = 10
         this.dy = 0
-
+        
         this.speed = 100
-
+        
         this.changingDirection = false 
-
+        
         this.foodX = 0
         this.foodY = 0
-
+        
         this.score = {
             currScore: 0,
             prevScore: 0,
             hiScore: 0
         }
+        this.displayScore = document.getElementById('score')
     }
 
     startGame() {
@@ -59,19 +60,20 @@ class Game {
             prevScore: this.score.prevScore,
             hiScore: this.score.hiScore
         }
-
+        
         snake.init()
         snake.generateFood()
     }
-
-
+    
+    
     init() {
-
+        
         if (this.hasGameEnded()) {
             this.setPrevScore()
             return
         }
         
+        this.displayScore.innerText = this.score.currScore
         this.changingDirection = false
         // make a timer
         /** setTimeout(callback function, time in ms) */
@@ -172,8 +174,6 @@ class Game {
             this.score.currScore+= 10
             this.setScores()
             this.speed-= 5
-            const displayScore = document.getElementById('score')
-            displayScore.innerText = this.score.currScore
             this.generateFood()
         } else {
             snake.pop()
